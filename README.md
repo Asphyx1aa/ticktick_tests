@@ -43,7 +43,7 @@ ___
 - Попытка получить задачу по несуществующему ID
 
 <a id="jenkins"></a>
-## <img src="media/jenkins-original.svg" width="20" height="20" /> Сборка в [Jenkinks](https://jenkins.autotests.cloud/job/033_undef1ned_0_hw14/)
+## <img src="media/jenkins-original.svg" width="20" height="20" /> Сборка в [Jenkinks](https://jenkins.autotests.cloud/job/033_undef1ned_0_diploma23/)
 <img src="media/jenkins.jpg"/>
 
 <a id="jenkins-params"></a>
