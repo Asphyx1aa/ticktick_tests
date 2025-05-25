@@ -98,9 +98,3 @@ ___
 ## <img src="media/Telegram.svg" width="20" height="20" /> Уведомления в телеграм при помощи бота:
 ___
 <img src="media/telegram-notify.jpg"/>
-
-
-<a id="video"></a>
-## <img src="media/Selenoid.svg" width="20" height="20" /> Примеры видео выполнения тестов на Selenoid:
-___
-<img src="media/videotest.gif"/>
