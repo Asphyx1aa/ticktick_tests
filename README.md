@@ -60,18 +60,15 @@ ___
 
 Локальный запуск:
 ```bash
-gradle clean test
+gradle clean -Denv=local test
 ```
 
 Удалённый запуск через Jenkins:
 ```bash
 gradle clean test
-"-Dwdhost=${WDHOST}"
-"-Dbrowser=${BROWSER}"
-"-Dbrowser_version=${BROWSER_VERSION}"
-"-Dbrowser_size=${BROWSER_SIZE}"
-"-Dpassword=${USER_PW}"
-"-Dlogin=${LOGIN_USERNAME}"
+"-Denv=remote"
+"-Durl=${URL}"
+"-Dapi_key=${API_KEY}"
 ```
 
 <a id="allure"></a>
