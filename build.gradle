@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.12.0'
+    id("io.freefair.lombok") version "8.13.1"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+def selenideVersion = '6.13.0'
+def restAssuredVersion = '5.5.1'
+def junitVersion = '5.12.2'
+def slf4jVersion = '2.0.13'
+def allureSelenideVersion = '2.29.0'
+def allureRestAssuredVersion = '2.29.0'
+def ownerVersion = '1.0.12'
+def appiumVersion = '8.3.0'
+def fakerVersion = '1.0.2'
+
+allure {
+    report {
+        version.set(allureSelenideVersion)
+    }
+
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit {
+                adapterVersion.set(allureSelenideVersion)
+            }
+        }
+    }
+}
+
+dependencies {
+    // JUnit
+    testImplementation(platform("org.junit:junit-bom:${junitVersion}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // UI
+    testImplementation("com.codeborne:selenide:${selenideVersion}")
+    testImplementation("io.appium:java-client:${appiumVersion}")
+
+    // Generate Data
+    testImplementation("com.github.javafaker:javafaker:${fakerVersion}")
+
+    // API
+    testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
+    testImplementation("io.qameta.allure:allure-rest-assured:${allureRestAssuredVersion}")
+
+    // Reporting
+    testImplementation("io.qameta.allure:allure-selenide:${allureSelenideVersion}")
+
+    // Config
+    testImplementation("org.aeonbits.owner:owner:${ownerVersion}")
+
+    // Logging
+    testImplementation("org.slf4j:slf4j-simple:${slf4jVersion}")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
