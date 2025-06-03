@@ -10,27 +10,22 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
-
-def selenideVersion = '6.13.0'
 def restAssuredVersion = '5.5.1'
 def junitVersion = '5.12.2'
 def slf4jVersion = '2.0.13'
-def allureSelenideVersion = '2.29.0'
-def allureRestAssuredVersion = '2.29.0'
 def ownerVersion = '1.0.12'
-def appiumVersion = '8.3.0'
 def fakerVersion = '1.0.2'
 
 allure {
     report {
-        version.set(allureSelenideVersion)
+        version.set(restAssuredVersion)
     }
 
     adapter {
         aspectjWeaver.set(true)
         frameworks {
             junit {
-                adapterVersion.set(allureSelenideVersion)
+
             }
         }
     }
@@ -42,19 +37,14 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // UI
-    testImplementation("com.codeborne:selenide:${selenideVersion}")
-    testImplementation("io.appium:java-client:${appiumVersion}")
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.19.0'
+    testImplementation 'io.qameta.allure:allure-rest-assured:2.29.1'
 
     // Generate Data
     testImplementation("com.github.javafaker:javafaker:${fakerVersion}")
 
     // API
     testImplementation("io.rest-assured:rest-assured:${restAssuredVersion}")
-    testImplementation("io.qameta.allure:allure-rest-assured:${allureRestAssuredVersion}")
-
-    // Reporting
-    testImplementation("io.qameta.allure:allure-selenide:${allureSelenideVersion}")
 
     // Config
     testImplementation("org.aeonbits.owner:owner:${ownerVersion}")

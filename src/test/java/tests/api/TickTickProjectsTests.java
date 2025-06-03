@@ -23,20 +23,20 @@ import static org.hamcrest.Matchers.notNullValue;
 public class TickTickProjectsTests extends TestBase {
 
     private final TaskApiSteps taskApiSteps = new TaskApiSteps();
-    TaskData taskData = new TaskData();
+    final TaskData taskData = new TaskData();
 
     @Test
     @DisplayName("Проверка на успешное создание задачи через API")
     @Severity(CRITICAL)
     void shouldCreateNewTaskTest() {
 
-        CreateTaskResponse response = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isIAllDay());
+        CreateTaskResponse response = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isAllDay());
 
         step("Проверяем, что задача создана успешно", () -> {
             assertThat(response.getId(), notNullValue());
             assertThat(response.getTitle(), equalTo(taskData.getTaskTitle()));
             assertThat(response.getContent(), equalTo(taskData.getTaskDesc()));
-            assertThat(response.isAllDay(), equalTo(taskData.isIAllDay()));
+            assertThat(response.isAllDay(), equalTo(taskData.isAllDay()));
         });
     }
 
@@ -44,7 +44,7 @@ public class TickTickProjectsTests extends TestBase {
     @DisplayName("Проверяем, что нельзя создать задачу неавторизованному пользователю")
     @Severity(NORMAL)
     void createTaskUnauthorizedUserTest() {
-        CreateTaskResponseWithError createTaskResponseWithError = taskApiSteps.createNewTaskUnauthorized(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isIAllDay());
+        CreateTaskResponseWithError createTaskResponseWithError = taskApiSteps.createNewTaskUnauthorized(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isAllDay());
 
         step("Проверяем, что вернулась ошибка 401 -'Нет доступа'", () ->
                 assertThat(createTaskResponseWithError.getError(), equalTo("unauthorized"))
@@ -55,7 +55,7 @@ public class TickTickProjectsTests extends TestBase {
     @DisplayName("Проверяем, что возвращается корректная задача")
     @Severity(CRITICAL)
     void shouldGetCorrectTaskTest() {
-        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isIAllDay());
+        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isAllDay());
 
         CreateTaskResponse getTaskResponse = taskApiSteps.getTaskById(taskResponse.getId(), taskResponse.getProjectId());
 
@@ -82,13 +82,13 @@ public class TickTickProjectsTests extends TestBase {
     @DisplayName("Проверяем, что задача обновляется успешно")
     @Severity(CRITICAL)
     void shouldUpdateTaskTest() {
-        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isIAllDay());
+        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isAllDay());
 
-        UpdateTaskResponse updateTaskResponse = taskApiSteps.updateTask(taskResponse.getId(), taskResponse.getProjectId(), taskData.getTaskContent(), taskData.isIAllDay());
+        UpdateTaskResponse updateTaskResponse = taskApiSteps.updateTask(taskResponse.getId(), taskResponse.getProjectId(), taskData.getTaskContent(), taskData.isAllDay());
 
         step("Проверяем, что задача обновилась успешно", () -> {
             assertThat(updateTaskResponse.getDesc(), equalTo(taskData.getTaskContent()));
-            assertThat(updateTaskResponse.isAllDay(), equalTo(taskData.isIAllDay()));
+            assertThat(updateTaskResponse.isAllDay(), equalTo(taskData.isAllDay()));
         });
     }
 
@@ -96,7 +96,7 @@ public class TickTickProjectsTests extends TestBase {
     @DisplayName("Проверяем, что задача удаляется успешно")
     @Severity(CRITICAL)
     void shouldDeleteTaskTest() {
-        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isIAllDay());
+        CreateTaskResponse taskResponse = taskApiSteps.createNewTask(taskData.getTaskTitle(), taskData.getTaskDesc(), taskData.getTaskContent(), taskData.isAllDay());
 
         taskApiSteps.deleteTask(taskResponse.getId(), taskResponse.getProjectId());
 

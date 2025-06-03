@@ -7,9 +7,15 @@ import lombok.Getter;
 public class TaskData {
     private final static Faker faker = new Faker();
 
-    public String taskTitle = faker.lebowski().quote();
-    public String taskDesc = faker.lorem().characters();
-    public String taskContent = faker.chuckNorris().fact();
-    public boolean iAllDay = faker.bool().bool();
+    String taskTitle;
+    String taskDesc;
+    String taskContent;
+    boolean isAllDay;
 
+    public TaskData() {
+        this.taskTitle = faker.lebowski().quote();
+        this.taskDesc = faker.lorem().characters();
+        this.taskContent = faker.chuckNorris().fact();
+        this.isAllDay = faker.bool().bool();
+    }
 }
